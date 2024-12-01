@@ -1,0 +1,6 @@
+@LeafyAPI_HostAddress = http://localhost:5254
+
+GET {{LeafyAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
