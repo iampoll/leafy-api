@@ -48,5 +48,19 @@ namespace LeafyAPI.Controllers
 
             return Ok(wallet);
         }
+
+        [HttpGet]
+        public async Task<IActionResult> GetWallet()
+        {
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
+                return Unauthorized();
+
+            var wallet = _context.Wallets.FirstOrDefault(w => w.UserId == user.Id);
+            if (wallet == null)
+                return NotFound();
+
+            return Ok(wallet);
+        }
     }
 }

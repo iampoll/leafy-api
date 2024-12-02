@@ -380,6 +380,16 @@
             "description": "OK"
           }
         }
+      },
+      "get": {
+        "tags": [
+          "Wallet"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
       }
     }
   },
