@@ -2,6 +2,7 @@ using LeafyAPI.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using LeafyAPI.Models;
+using LeafyAPI.DTOs;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -43,7 +44,20 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.MapIdentityApi<User>(); 
+app.MapIdentityApi<User>();
+
+app.MapGet("/api/manage/info", async (HttpContext context, UserManager<User> userManager) =>
+{
+    var user = await userManager.GetUserAsync(context.User);
+    if (user == null) return Results.Unauthorized();
+
+    return Results.Ok(new CustomUserInfo
+    {   
+        Id = user.Id,
+        Email = user.Email ?? string.Empty,
+        IsOnboarded = user.isOnboarded
+    });
+}).RequireAuthorization();
 
 app.UseHttpsRedirection();
 

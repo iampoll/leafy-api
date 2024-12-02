@@ -339,6 +339,18 @@
         }
       }
     },
+    "/api/manage/info": {
+      "get": {
+        "tags": [
+          "LeafyAPI"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/Wallet": {
       "post": {
         "tags": [
