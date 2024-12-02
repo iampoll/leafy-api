@@ -10,6 +10,8 @@ namespace LeafyAPI.Data
         {
         }
 
+        public required DbSet<Wallet> Wallets { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -17,6 +19,10 @@ namespace LeafyAPI.Data
             modelBuilder.Entity<User>()
                 .Property(u => u.isOnboarded)
                 .HasDefaultValue(false);
+
+            modelBuilder.Entity<Wallet>()
+                .Property(w => w.Balance)
+                .HasPrecision(18, 2);
         }
     }
 } 
