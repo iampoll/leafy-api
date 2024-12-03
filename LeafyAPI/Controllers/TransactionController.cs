@@ -8,7 +8,7 @@ using LeafyAPI.DTOs;
 namespace LeafyAPI.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/transactions")]
     [Authorize]
     public class TransactionController : ControllerBase
     {
@@ -51,7 +51,15 @@ namespace LeafyAPI.Controllers
             _context.Transactions.Add(transaction);
             await _context.SaveChangesAsync();
 
-            return Ok(transaction);
+            return Ok(new TransactionDto
+            {
+                Id = transaction.Id,
+                Amount = transaction.Amount,
+                Category = transaction.Category,
+                CategoryName = transaction.Category.ToString(),
+                isExpense = transaction.isExpense,
+                CreatedAt = transaction.CreatedAt
+            });
         }
 
         [HttpGet("categories")]
@@ -66,5 +74,33 @@ namespace LeafyAPI.Controllers
 
             return Ok(categories);
         }
+
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<TransactionDto>>> GetTransactions()
+        {
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
+                return Unauthorized();
+
+            var wallet = _context.Wallets.FirstOrDefault(w => w.UserId == user.Id); 
+            if (wallet == null)
+                return NotFound("Wallet not found");
+
+            var transactions = _context.Transactions
+                .Where(t => t.WalletId == wallet.Id)
+                .Select(t => new TransactionDto
+                {
+                    Id = t.Id,
+                    Amount = t.Amount,
+                    Category = t.Category,
+                    CategoryName = t.Category.ToString(),
+                    isExpense = t.isExpense,
+                    CreatedAt = t.CreatedAt
+                })
+                .ToList();
+
+            return Ok(transactions);
+        }
+
     }
 }
