@@ -457,6 +457,7 @@
       "CreateTransactionDto": {
         "required": [
           "amount",
+          "category",
           "isExpense"
         ],
         "type": "object",
@@ -467,6 +468,9 @@
           "amount": {
             "type": "number",
             "format": "double"
+          },
+          "category": {
+            "$ref": "#/components/schemas/TransactionCategory"
           }
         },
         "additionalProperties": false
@@ -658,6 +662,27 @@
           }
         },
         "additionalProperties": false
+      },
+      "TransactionCategory": {
+        "enum": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15
+        ],
+        "type": "integer",
+        "format": "int32"
       },
       "TwoFactorRequest": {
         "type": "object",

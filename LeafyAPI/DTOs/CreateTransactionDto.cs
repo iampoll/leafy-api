@@ -6,5 +6,6 @@ namespace LeafyAPI.DTOs
     {
         public required bool isExpense {get; set;}
         public required decimal Amount { get; set; }
+        public required TransactionCategory Category { get; set; }
     }
 } 

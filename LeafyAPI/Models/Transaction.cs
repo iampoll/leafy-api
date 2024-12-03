@@ -19,7 +19,10 @@ namespace LeafyAPI.Models
         [Column(TypeName = "decimal(18,2)")]
         public decimal Amount { get; set; }
 
+        [Required]
+        [Range(1, 15)]
+        public TransactionCategory Category { get; set; }
+
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     }
-
 }
