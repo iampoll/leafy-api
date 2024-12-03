@@ -351,7 +351,7 @@
         }
       }
     },
-    "/api/Transaction": {
+    "/api/transactions": {
       "post": {
         "tags": [
           "Transaction"
@@ -418,7 +418,7 @@
         }
       }
     },
-    "/api/Transaction/categories": {
+    "/api/transactions/categories": {
       "get": {
         "tags": [
           "Transaction"
@@ -456,7 +456,7 @@
         }
       }
     },
-    "/api/Wallet": {
+    "/api/wallets": {
       "post": {
         "tags": [
           "Wallet"
@@ -776,7 +776,10 @@
         "required": [
           "amount",
           "category",
-          "id"
+          "categoryName",
+          "createdAt",
+          "id",
+          "isExpense"
         ],
         "type": "object",
         "properties": {
@@ -790,6 +793,17 @@
           },
           "category": {
             "$ref": "#/components/schemas/TransactionCategory"
+          },
+          "categoryName": {
+            "type": "string",
+            "nullable": true
+          },
+          "isExpense": {
+            "type": "boolean"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
           }
         },
         "additionalProperties": false

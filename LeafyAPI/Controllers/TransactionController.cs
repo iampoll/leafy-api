@@ -102,5 +102,30 @@ namespace LeafyAPI.Controllers
             return Ok(transactions);
         }
 
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteTransaction(int id)
+        {
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
+                return Unauthorized();
+
+            var wallet = _context.Wallets.FirstOrDefault(w => w.UserId == user.Id);
+            if (wallet == null)
+                return NotFound("Wallet not found");
+
+            var transaction = _context.Transactions.FirstOrDefault(t => t.Id == id && t.WalletId == wallet.Id); 
+            if (transaction == null)
+                return NotFound("Transaction not found");
+
+            if (transaction.isExpense)
+                wallet.Balance += transaction.Amount;   
+            else
+                wallet.Balance -= transaction.Amount;
+
+            _context.Transactions.Remove(transaction);
+            await _context.SaveChangesAsync();
+            return NoContent();
+        }
+
     }
 }

@@ -18,7 +18,7 @@
   {
     "ContainingType": "LeafyAPI.Controllers.TransactionController",
     "Method": "CreateTransaction",
-    "RelativePath": "api/Transaction",
+    "RelativePath": "api/transactions",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
@@ -34,7 +34,7 @@
   {
     "ContainingType": "LeafyAPI.Controllers.TransactionController",
     "Method": "GetTransactions",
-    "RelativePath": "api/Transaction",
+    "RelativePath": "api/transactions",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -54,7 +54,7 @@
   {
     "ContainingType": "LeafyAPI.Controllers.TransactionController",
     "Method": "GetCategories",
-    "RelativePath": "api/Transaction/categories",
+    "RelativePath": "api/transactions/categories",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -74,7 +74,7 @@
   {
     "ContainingType": "LeafyAPI.Controllers.WalletController",
     "Method": "CreateWallet",
-    "RelativePath": "api/Wallet",
+    "RelativePath": "api/wallets",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
@@ -90,7 +90,7 @@
   {
     "ContainingType": "LeafyAPI.Controllers.WalletController",
     "Method": "GetWallet",
-    "RelativePath": "api/Wallet",
+    "RelativePath": "api/wallets",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
