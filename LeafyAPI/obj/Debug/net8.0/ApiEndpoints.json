@@ -53,6 +53,43 @@
   },
   {
     "ContainingType": "LeafyAPI.Controllers.TransactionController",
+    "Method": "DeleteTransaction",
+    "RelativePath": "api/transactions/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "LeafyAPI.Controllers.TransactionController",
+    "Method": "UpdateTransaction",
+    "RelativePath": "api/transactions/{id}",
+    "HttpMethod": "PATCH",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "request",
+        "Type": "LeafyAPI.DTOs.UpdateTransactionDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "LeafyAPI.Controllers.TransactionController",
     "Method": "GetCategories",
     "RelativePath": "api/transactions/categories",
     "HttpMethod": "GET",

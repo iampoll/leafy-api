@@ -39,7 +39,7 @@ namespace LeafyAPI.Controllers
             {
                 WalletId = wallet.Id,
                 isExpense = request.isExpense,
-                Amount = request.Amount,
+                Amount = request.Amount,    
                 Category = request.Category
             };
 
@@ -125,6 +125,51 @@ namespace LeafyAPI.Controllers
             _context.Transactions.Remove(transaction);
             await _context.SaveChangesAsync();
             return NoContent();
+        }
+
+        [HttpPatch("{id}")]
+        public async Task<IActionResult> UpdateTransaction(int id, [FromBody] UpdateTransactionDto request)
+        {
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
+                return Unauthorized();
+
+            var wallet = _context.Wallets.FirstOrDefault(w => w.UserId == user.Id);
+            if (wallet == null)
+                return NotFound("Wallet not found");
+
+            var transaction = _context.Transactions.FirstOrDefault(t => t.Id == id && t.WalletId == wallet.Id);
+            if (transaction == null)
+                return NotFound("Transaction not found");
+
+            // First, reverse the effect of the old transaction
+            if (transaction.isExpense)
+                wallet.Balance += transaction.Amount;  // Add back the old expense
+            else
+                wallet.Balance -= transaction.Amount;  // Subtract the old income
+
+            // Then apply the new transaction
+            if (request.isExpense)
+                wallet.Balance -= request.Amount;  // Subtract the new expense
+            else
+                wallet.Balance += request.Amount;  // Add the new income
+
+            // Update transaction details
+            transaction.Amount = request.Amount;
+            transaction.Category = request.Category;
+            transaction.isExpense = request.isExpense;
+
+            await _context.SaveChangesAsync();
+            
+            return Ok(new TransactionDto
+            {
+                Id = transaction.Id,
+                Amount = transaction.Amount,
+                Category = transaction.Category,
+                CategoryName = transaction.Category.ToString(),
+                isExpense = transaction.isExpense,
+                CreatedAt = transaction.CreatedAt
+            });
         }
 
     }
