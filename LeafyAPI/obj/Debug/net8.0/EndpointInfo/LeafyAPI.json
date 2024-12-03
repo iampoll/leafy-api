@@ -351,6 +351,37 @@
         }
       }
     },
+    "/api/Transaction": {
+      "post": {
+        "tags": [
+          "Transaction"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateTransactionDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateTransactionDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateTransactionDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/Wallet": {
       "post": {
         "tags": [
@@ -419,6 +450,23 @@
           "refreshToken": {
             "type": "string",
             "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "CreateTransactionDto": {
+        "required": [
+          "amount",
+          "isExpense"
+        ],
+        "type": "object",
+        "properties": {
+          "isExpense": {
+            "type": "boolean"
+          },
+          "amount": {
+            "type": "number",
+            "format": "double"
           }
         },
         "additionalProperties": false

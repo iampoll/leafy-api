@@ -16,6 +16,22 @@
     ]
   },
   {
+    "ContainingType": "LeafyAPI.Controllers.TransactionController",
+    "Method": "CreateTransaction",
+    "RelativePath": "api/Transaction",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "LeafyAPI.DTOs.CreateTransactionDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "LeafyAPI.Controllers.WalletController",
     "Method": "CreateWallet",
     "RelativePath": "api/Wallet",

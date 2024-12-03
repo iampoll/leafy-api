@@ -11,6 +11,7 @@ namespace LeafyAPI.Data
         }
 
         public required DbSet<Wallet> Wallets { get; set; }
+        public required DbSet<Transaction> Transactions { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -22,6 +23,10 @@ namespace LeafyAPI.Data
 
             modelBuilder.Entity<Wallet>()
                 .Property(w => w.Balance)
+                .HasPrecision(18, 2);
+
+            modelBuilder.Entity<Transaction>()
+                .Property(t => t.Amount)
                 .HasPrecision(18, 2);
         }
     }
