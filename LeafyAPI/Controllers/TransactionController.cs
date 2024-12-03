@@ -53,5 +53,18 @@ namespace LeafyAPI.Controllers
 
             return Ok(transaction);
         }
+
+        [HttpGet("categories")]
+        public ActionResult<IEnumerable<TransactionCategoryDto>> GetCategories()
+        {
+            var categories = Enum.GetValues<TransactionCategory>()
+                .Select(c => new TransactionCategoryDto
+                {
+                    Id = (int)c,
+                    Name = c.ToString()
+                });
+
+            return Ok(categories);
+        }
     }
 }
