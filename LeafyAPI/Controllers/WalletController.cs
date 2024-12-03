@@ -8,7 +8,7 @@ using LeafyAPI.DTOs;
 namespace LeafyAPI.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/wallets")]
     [Authorize]
     public class WalletController : ControllerBase
     {
