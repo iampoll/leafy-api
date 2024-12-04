@@ -156,21 +156,20 @@ namespace LeafyAPI.Controllers
             if (transaction == null)
                 return NotFound("Transaction not found");
 
-            // First, reverse the effect of the old transaction
+            // reverse the effect of the old transaction
             if (transaction.isExpense)
-                wallet.Balance += transaction.Amount;  // Add back the old expense
+                wallet.Balance += transaction.Amount;  
             else
-                wallet.Balance -= transaction.Amount;  // Subtract the old income
+                wallet.Balance -= transaction.Amount;  
 
-            // Then apply the new transaction
+            // apply the new transaction
             if (request.isExpense)
-                wallet.Balance -= request.Amount;  // Subtract the new expense
+                wallet.Balance -= request.Amount;  
             else
-                wallet.Balance += request.Amount;  // Add the new income
+                wallet.Balance += request.Amount;  
 
-            // Update transaction details
             transaction.Amount = request.Amount;
-            transaction.Category = request.Category;
+            transaction.Category = request.isExpense ? request.Category : TransactionCategory.Income;
             transaction.isExpense = request.isExpense;
 
             await _context.SaveChangesAsync();
