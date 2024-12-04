@@ -18,6 +18,8 @@ builder.Services.AddDbContext<DataContext>(options =>
 
 builder.Services.AddAuthorization();
 
+builder.Services.AddControllers().AddNewtonsoftJson();
+
 builder.Services.AddIdentityApiEndpoints<User>()
     .AddEntityFrameworkStores<DataContext>();
 

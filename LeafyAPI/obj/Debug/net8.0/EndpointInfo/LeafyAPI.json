@@ -358,6 +358,11 @@
         ],
         "requestBody": {
           "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateTransactionDto"
+              }
+            },
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/CreateTransactionDto"
@@ -495,6 +500,11 @@
         ],
         "requestBody": {
           "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateTransactionDto"
+              }
+            },
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/UpdateTransactionDto"
@@ -526,6 +536,11 @@
         ],
         "requestBody": {
           "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateWalletDto"
+              }
+            },
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/CreateWalletDto"

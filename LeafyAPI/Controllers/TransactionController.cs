@@ -38,6 +38,9 @@ namespace LeafyAPI.Controllers
             if(request.isExpense && request.Category == TransactionCategory.Income)
                 return BadRequest("Income cannot be an expense");
 
+            if(!request.isExpense && request.Category != TransactionCategory.Income)
+                return BadRequest("Expense cannot be an income");
+
             Transaction transaction;
 
             if(!request.isExpense)
@@ -155,6 +158,12 @@ namespace LeafyAPI.Controllers
             var transaction = _context.Transactions.FirstOrDefault(t => t.Id == id && t.WalletId == wallet.Id);
             if (transaction == null)
                 return NotFound("Transaction not found");
+
+            if(request.isExpense && request.Category == TransactionCategory.Income)
+                return BadRequest("Income cannot be an expense");
+
+            if(!request.isExpense && request.Category != TransactionCategory.Income)
+                return BadRequest("Expense cannot be an income");
 
             // reverse the effect of the old transaction
             if (transaction.isExpense)
