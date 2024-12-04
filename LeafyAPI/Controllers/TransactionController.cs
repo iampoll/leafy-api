@@ -34,13 +34,7 @@ namespace LeafyAPI.Controllers
 
             if ((int)request.Category < 1 || (int)request.Category > 16)
                 return BadRequest("Invalid category");
-
-            if(request.isExpense && request.Category == TransactionCategory.Income)
-                return BadRequest("Income cannot be an expense");
-
-            if(!request.isExpense && request.Category != TransactionCategory.Income)
-                return BadRequest("Expense cannot be an income");
-
+           
             Transaction transaction;
 
             if(!request.isExpense)
@@ -161,9 +155,6 @@ namespace LeafyAPI.Controllers
 
             if(request.isExpense && request.Category == TransactionCategory.Income)
                 return BadRequest("Income cannot be an expense");
-
-            if(!request.isExpense && request.Category != TransactionCategory.Income)
-                return BadRequest("Expense cannot be an income");
 
             // reverse the effect of the old transaction
             if (transaction.isExpense)
