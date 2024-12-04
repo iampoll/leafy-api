@@ -32,16 +32,27 @@ namespace LeafyAPI.Controllers
             if (wallet == null)
                 return NotFound("Wallet not found");
 
-            if ((int)request.Category < 1 || (int)request.Category > 15)
+            if ((int)request.Category < 1 || (int)request.Category > 16)
                 return BadRequest("Invalid category");
 
-            var transaction = new Transaction
-            {
-                WalletId = wallet.Id,
-                isExpense = request.isExpense,
-                Amount = request.Amount,    
-                Category = request.Category
-            };
+            Transaction transaction;
+
+            if(!request.isExpense)
+                transaction = new Transaction
+                {
+                    WalletId = wallet.Id,
+                    isExpense = request.isExpense,
+                    Amount = request.Amount,    
+                    Category = TransactionCategory.Income,
+                };
+            else
+                transaction = new Transaction
+                {
+                    WalletId = wallet.Id,
+                    isExpense = request.isExpense,
+                    Amount = request.Amount,    
+                    Category = request.Category
+                };
 
             if (request.isExpense)
                 wallet.Balance -= request.Amount;

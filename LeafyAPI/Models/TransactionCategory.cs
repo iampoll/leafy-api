@@ -16,6 +16,7 @@ namespace LeafyAPI.Models
         Laundry = 12,
         Entertainment = 13,
         Subscriptions = 14,
-        Other = 15
+        Other = 15,
+        Income = 16
     }
 } 
