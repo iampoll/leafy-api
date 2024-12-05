@@ -3,6 +3,10 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using LeafyAPI.Models;
 using LeafyAPI.DTOs;
+using LeafyAPI.Repositories.Interfaces;
+using LeafyAPI.Services.Interfaces;
+using LeafyAPI.Services;
+using LeafyAPI.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,6 +25,8 @@ builder.Services.AddAuthorization();
 builder.Services.AddIdentityApiEndpoints<User>()
     .AddEntityFrameworkStores<DataContext>();
 
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IUserService, UserService>();
 
 builder.Services.AddCors(options =>
 {
@@ -45,19 +51,6 @@ if (app.Environment.IsDevelopment())
 }
 
 app.MapIdentityApi<User>();
-
-app.MapGet("/api/manage/info", async (HttpContext context, UserManager<User> userManager) =>
-{
-    var user = await userManager.GetUserAsync(context.User);
-    if (user == null) return Results.Unauthorized();
-
-    return Results.Ok(new CustomUserInfo
-    {   
-        Id = user.Id,
-        Email = user.Email ?? string.Empty,
-        IsOnboarded = user.isOnboarded
-    });
-}).RequireAuthorization();
 
 app.UseHttpsRedirection();
 

@@ -339,18 +339,6 @@
         }
       }
     },
-    "/api/manage/info": {
-      "get": {
-        "tags": [
-          "LeafyAPI"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
     "/api/transactions": {
       "post": {
         "tags": [
@@ -519,6 +507,18 @@
         }
       }
     },
+    "/api/User": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/wallets": {
       "post": {
         "tags": [
@@ -594,7 +594,6 @@
       "CreateTransactionDto": {
         "required": [
           "amount",
-          "category",
           "isExpense"
         ],
         "type": "object",
@@ -607,7 +606,8 @@
             "format": "double"
           },
           "category": {
-            "$ref": "#/components/schemas/TransactionCategory"
+            "type": "string",
+            "nullable": true
           }
         },
         "additionalProperties": false

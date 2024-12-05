@@ -1,21 +1,5 @@
 [
   {
-    "ContainingType": "Program\u002B\u003C\u003Ec",
-    "Method": "\u003C\u003CMain\u003E$\u003Eb__0_2",
-    "RelativePath": "api/manage/info",
-    "HttpMethod": "GET",
-    "IsController": false,
-    "Order": 0,
-    "Parameters": [],
-    "ReturnTypes": [
-      {
-        "Type": "System.Void",
-        "MediaTypes": [],
-        "StatusCode": 200
-      }
-    ]
-  },
-  {
     "ContainingType": "LeafyAPI.Controllers.TransactionController",
     "Method": "CreateTransaction",
     "RelativePath": "api/transactions",
@@ -107,6 +91,16 @@
         "StatusCode": 200
       }
     ]
+  },
+  {
+    "ContainingType": "LeafyAPI.Controllers.UserController",
+    "Method": "GetUserInfo",
+    "RelativePath": "api/User",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
   },
   {
     "ContainingType": "LeafyAPI.Controllers.WalletController",
