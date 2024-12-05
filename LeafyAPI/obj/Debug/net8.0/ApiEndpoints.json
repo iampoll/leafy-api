@@ -95,7 +95,7 @@
   {
     "ContainingType": "LeafyAPI.Controllers.UserController",
     "Method": "GetUserInfo",
-    "RelativePath": "api/User",
+    "RelativePath": "api/users",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,

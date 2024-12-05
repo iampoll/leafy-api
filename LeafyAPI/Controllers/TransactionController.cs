@@ -34,12 +34,15 @@ namespace LeafyAPI.Controllers
 
             if ((int)request.Category < 1 || (int)request.Category > 16)
                 return BadRequest("Invalid category");
+
+            if(request.isExpense && request.Category == TransactionCategory.Income)
+                return BadRequest("Income cannot be an expense");
            
             Transaction transaction;
 
             if(!request.isExpense)
                 transaction = new Transaction
-                
+
                 {
                     WalletId = wallet.Id,
                     isExpense = request.isExpense,
