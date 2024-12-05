@@ -25,12 +25,6 @@ namespace LeafyAPI.Repositories
             return wallet;
         }
 
-        public async Task<Wallet> UpdateAsync(Wallet wallet)
-        {
-            _context.Wallets.Update(wallet);
-            return wallet;
-        }
-
         public async Task SaveChangesAsync()
         {
             await _context.SaveChangesAsync();

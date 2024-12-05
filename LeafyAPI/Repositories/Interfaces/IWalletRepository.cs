@@ -6,7 +6,6 @@ namespace LeafyAPI.Repositories.Interfaces
     {
         Task<Wallet?> GetByUserIdAsync(string userId);
         Task<Wallet> CreateAsync(Wallet wallet);
-        Task<Wallet> UpdateAsync(Wallet wallet);
         Task SaveChangesAsync();
     }
 }
