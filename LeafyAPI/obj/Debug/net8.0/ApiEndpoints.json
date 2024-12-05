@@ -112,11 +112,21 @@
     "Parameters": [
       {
         "Name": "request",
-        "Type": "LeafyAPI.DTOs.CreateWalletDto",
+        "Type": "LeafyAPI.DTOs.CreateWalletRequestDto",
         "IsRequired": true
       }
     ],
-    "ReturnTypes": []
+    "ReturnTypes": [
+      {
+        "Type": "LeafyAPI.DTOs.WalletResponseDto",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
   },
   {
     "ContainingType": "LeafyAPI.Controllers.WalletController",
@@ -126,7 +136,17 @@
     "IsController": true,
     "Order": 0,
     "Parameters": [],
-    "ReturnTypes": []
+    "ReturnTypes": [
+      {
+        "Type": "LeafyAPI.DTOs.WalletResponseDto",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
   },
   {
     "ContainingType": "Microsoft.AspNetCore.Routing.IdentityApiEndpointRouteBuilderExtensions\u002B\u003C\u003Ec__1\u00601[[LeafyAPI.Models.User, LeafyAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",

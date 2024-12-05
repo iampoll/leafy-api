@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("LeafyAPI")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+29b3d6bf635af9ee03517ae040a7a0412f04b7cb")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+39cb471897e95b7f03ed2be3328700a9c2992e6a")]
 [assembly: System.Reflection.AssemblyProductAttribute("LeafyAPI")]
 [assembly: System.Reflection.AssemblyTitleAttribute("LeafyAPI")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

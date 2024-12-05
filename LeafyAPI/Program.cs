@@ -30,6 +30,9 @@ builder.Services.AddIdentityApiEndpoints<User>()
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserService, UserService>();
 
+builder.Services.AddScoped<IWalletRepository, WalletRepository>();
+builder.Services.AddScoped<IWalletService, WalletService>();
+
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowFrontend", policy =>

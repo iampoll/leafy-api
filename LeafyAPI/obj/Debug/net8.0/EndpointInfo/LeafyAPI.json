@@ -538,29 +538,46 @@
           "content": {
             "application/json-patch+json": {
               "schema": {
-                "$ref": "#/components/schemas/CreateWalletDto"
+                "$ref": "#/components/schemas/CreateWalletRequestDto"
               }
             },
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/CreateWalletDto"
+                "$ref": "#/components/schemas/CreateWalletRequestDto"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/CreateWalletDto"
+                "$ref": "#/components/schemas/CreateWalletRequestDto"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/CreateWalletDto"
+                "$ref": "#/components/schemas/CreateWalletRequestDto"
               }
             }
           }
         },
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/WalletResponseDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WalletResponseDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WalletResponseDto"
+                }
+              }
+            }
           }
         }
       },
@@ -570,7 +587,24 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/WalletResponseDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WalletResponseDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WalletResponseDto"
+                }
+              }
+            }
           }
         }
       }
@@ -627,7 +661,7 @@
         },
         "additionalProperties": false
       },
-      "CreateWalletDto": {
+      "CreateWalletRequestDto": {
         "type": "object",
         "properties": {
           "initialBalance": {
@@ -960,6 +994,16 @@
           },
           "category": {
             "$ref": "#/components/schemas/TransactionCategory"
+          }
+        },
+        "additionalProperties": false
+      },
+      "WalletResponseDto": {
+        "type": "object",
+        "properties": {
+          "balance": {
+            "type": "number",
+            "format": "double"
           }
         },
         "additionalProperties": false

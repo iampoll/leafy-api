@@ -1,9 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
-using LeafyAPI.Models;
-using LeafyAPI.Data;
-using Microsoft.AspNetCore.Identity;
+using LeafyAPI.Services.Interfaces;
 using LeafyAPI.DTOs;
+using Microsoft.AspNetCore.Identity;
+using LeafyAPI.Models;
 
 namespace LeafyAPI.Controllers
 {
@@ -12,55 +12,49 @@ namespace LeafyAPI.Controllers
     [Authorize]
     public class WalletController : ControllerBase
     {
-        private readonly DataContext _context;
+        private readonly IWalletService _walletService;
         private readonly UserManager<User> _userManager;
 
-        public WalletController(DataContext context, UserManager<User> userManager)
+        public WalletController(IWalletService walletService, UserManager<User> userManager)
         {
-            _context = context;
+            _walletService = walletService;
             _userManager = userManager;
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateWallet([FromBody] CreateWalletDto request)
+        public async Task<ActionResult<WalletResponseDto>> CreateWallet([FromBody] CreateWalletRequestDto request)
         {
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
                 return Unauthorized();
 
-            var existingWallet = _context.Wallets.FirstOrDefault(w => w.UserId == user.Id);
-            if (existingWallet != null)
-                return BadRequest("User already has a wallet");
-
-            var wallet = new Wallet
+            try
             {
-                UserId = user.Id,
-                Balance = request.InitialBalance
-            };
-
-            user.isOnboarded = true;    
-            await _userManager.UpdateAsync(user);
-            _context.Users.Update(user);
-
-
-            _context.Wallets.Add(wallet);
-            await _context.SaveChangesAsync();
-
-            return Ok(wallet);
+                var result = await _walletService.CreateWalletAsync(user.Id, request);
+                return Ok(result);
+            }
+            catch (InvalidOperationException ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetWallet()
+        public async Task<ActionResult<WalletResponseDto>> GetWallet()
         {
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
                 return Unauthorized();
 
-            var wallet = _context.Wallets.FirstOrDefault(w => w.UserId == user.Id);
-            if (wallet == null)
-                return NotFound();
-
-            return Ok(wallet);
+            try
+            {
+                var result = await _walletService.GetWalletAsync(user.Id);
+                return Ok(result);
+            }
+            catch (KeyNotFoundException)
+            {
+                return NotFound("Wallet not found");
+            }
         }
     }
 }

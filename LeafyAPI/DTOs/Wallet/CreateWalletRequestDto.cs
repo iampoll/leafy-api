@@ -1,6 +1,6 @@
 namespace LeafyAPI.DTOs
 {
-    public class CreateWalletDto
+    public class CreateWalletRequestDto
     {
         public decimal InitialBalance { get; set; }
     }
