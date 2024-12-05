@@ -22,7 +22,7 @@ namespace LeafyAPI.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<TransactionDto>> CreateTransaction([FromBody] CreateTransactionDto request)
+        public async Task<ActionResult<TransactionDto>> CreateTransaction([FromBody] CreateTransactionRequestDto request)
         {
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
@@ -44,7 +44,7 @@ namespace LeafyAPI.Controllers
         }
 
         [HttpGet("categories")]
-        public async Task<ActionResult<IEnumerable<TransactionCategoryDto>>> GetCategories()
+        public async Task<ActionResult<IEnumerable<TransactionCategoryResponseDto>>> GetCategories()
         {
             var categories = await _transactionService.GetCategoriesAsync();
             return Ok(categories);
@@ -87,7 +87,7 @@ namespace LeafyAPI.Controllers
         }
 
         [HttpPatch("{id}")]
-        public async Task<ActionResult<TransactionDto>> UpdateTransaction(int id, [FromBody] UpdateTransactionDto request)
+        public async Task<ActionResult<TransactionDto>> UpdateTransaction(int id, [FromBody] UpdateTransactionRequestDto request)
         {
             var user = await _userManager.GetUserAsync(User);
             if (user == null)

@@ -2,7 +2,7 @@ using LeafyAPI.Models;
 
 namespace LeafyAPI.DTOs
 {
-    public class UpdateTransactionDto
+    public class UpdateTransactionRequestDto
     {
         public required bool isExpense { get; set; }
         public required decimal Amount { get; set; }

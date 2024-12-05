@@ -16,7 +16,7 @@ namespace LeafyAPI.Services
             _walletRepository = walletRepository;
         }
 
-        public async Task<TransactionDto> CreateTransactionAsync(string userId, CreateTransactionDto request)
+        public async Task<TransactionDto> CreateTransactionAsync(string userId, CreateTransactionRequestDto request)
         {
             var wallet = await _walletRepository.GetByUserIdAsync(userId);
             if (wallet == null)
@@ -47,10 +47,10 @@ namespace LeafyAPI.Services
             return MapToDto(transaction);
         }
 
-        public async Task<IEnumerable<TransactionCategoryDto>> GetCategoriesAsync()
+        public async Task<IEnumerable<TransactionCategoryResponseDto>> GetCategoriesAsync()
         {
             return Enum.GetValues<TransactionCategory>()
-                .Select(c => new TransactionCategoryDto
+                .Select(c => new TransactionCategoryResponseDto
                 {
                     Id = (int)c,
                     Name = c.ToString()
@@ -86,7 +86,7 @@ namespace LeafyAPI.Services
             await _transactionRepository.SaveChangesAsync();
         }
 
-        public async Task<TransactionDto> UpdateTransactionAsync(string userId, int transactionId, UpdateTransactionDto request)
+        public async Task<TransactionDto> UpdateTransactionAsync(string userId, int transactionId, UpdateTransactionRequestDto request)
         {
             var wallet = await _walletRepository.GetByUserIdAsync(userId);
             if (wallet == null)

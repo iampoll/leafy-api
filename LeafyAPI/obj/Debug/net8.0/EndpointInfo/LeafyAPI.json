@@ -348,22 +348,22 @@
           "content": {
             "application/json-patch+json": {
               "schema": {
-                "$ref": "#/components/schemas/CreateTransactionDto"
+                "$ref": "#/components/schemas/CreateTransactionRequestDto"
               }
             },
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/CreateTransactionDto"
+                "$ref": "#/components/schemas/CreateTransactionRequestDto"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/CreateTransactionDto"
+                "$ref": "#/components/schemas/CreateTransactionRequestDto"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/CreateTransactionDto"
+                "$ref": "#/components/schemas/CreateTransactionRequestDto"
               }
             }
           }
@@ -441,7 +441,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/TransactionCategoryDto"
+                    "$ref": "#/components/schemas/TransactionCategoryResponseDto"
                   }
                 }
               },
@@ -449,7 +449,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/TransactionCategoryDto"
+                    "$ref": "#/components/schemas/TransactionCategoryResponseDto"
                   }
                 }
               },
@@ -457,7 +457,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/TransactionCategoryDto"
+                    "$ref": "#/components/schemas/TransactionCategoryResponseDto"
                   }
                 }
               }
@@ -507,22 +507,22 @@
           "content": {
             "application/json-patch+json": {
               "schema": {
-                "$ref": "#/components/schemas/UpdateTransactionDto"
+                "$ref": "#/components/schemas/UpdateTransactionRequestDto"
               }
             },
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/UpdateTransactionDto"
+                "$ref": "#/components/schemas/UpdateTransactionRequestDto"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/UpdateTransactionDto"
+                "$ref": "#/components/schemas/UpdateTransactionRequestDto"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/UpdateTransactionDto"
+                "$ref": "#/components/schemas/UpdateTransactionRequestDto"
               }
             }
           }
@@ -674,7 +674,7 @@
         },
         "additionalProperties": false
       },
-      "CreateTransactionDto": {
+      "CreateTransactionRequestDto": {
         "required": [
           "amount",
           "isExpense"
@@ -905,7 +905,10 @@
         "type": "integer",
         "format": "int32"
       },
-      "TransactionCategoryDto": {
+      "TransactionCategoryResponseDto": {
+        "required": [
+          "name"
+        ],
         "type": "object",
         "properties": {
           "id": {
@@ -1011,7 +1014,7 @@
         },
         "additionalProperties": false
       },
-      "UpdateTransactionDto": {
+      "UpdateTransactionRequestDto": {
         "required": [
           "amount",
           "category",

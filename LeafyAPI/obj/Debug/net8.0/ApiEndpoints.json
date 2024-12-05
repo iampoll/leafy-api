@@ -9,7 +9,7 @@
     "Parameters": [
       {
         "Name": "request",
-        "Type": "LeafyAPI.DTOs.CreateTransactionDto",
+        "Type": "LeafyAPI.DTOs.CreateTransactionRequestDto",
         "IsRequired": true
       }
     ],
@@ -76,7 +76,7 @@
       },
       {
         "Name": "request",
-        "Type": "LeafyAPI.DTOs.UpdateTransactionDto",
+        "Type": "LeafyAPI.DTOs.UpdateTransactionRequestDto",
         "IsRequired": true
       }
     ],
@@ -102,7 +102,7 @@
     "Parameters": [],
     "ReturnTypes": [
       {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[LeafyAPI.DTOs.TransactionCategoryDto, LeafyAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[LeafyAPI.DTOs.TransactionCategoryResponseDto, LeafyAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "text/plain",
           "application/json",
