@@ -44,9 +44,9 @@ namespace LeafyAPI.Controllers
         }
 
         [HttpGet("categories")]
-        public async Task<ActionResult<IEnumerable<TransactionCategoryResponseDto>>> GetCategories()
+        public ActionResult<IEnumerable<TransactionCategoryResponseDto>> GetCategories()
         {
-            var categories = await _transactionService.GetCategoriesAsync();
+            var categories = _transactionService.GetCategories();
             return Ok(categories);
         }
 

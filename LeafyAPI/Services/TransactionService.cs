@@ -47,7 +47,7 @@ namespace LeafyAPI.Services
             return MapToDto(transaction);
         }
 
-        public async Task<IEnumerable<TransactionCategoryResponseDto>> GetCategoriesAsync()
+        public IEnumerable<TransactionCategoryResponseDto> GetCategories()
         {
             return Enum.GetValues<TransactionCategory>()
                 .Select(c => new TransactionCategoryResponseDto

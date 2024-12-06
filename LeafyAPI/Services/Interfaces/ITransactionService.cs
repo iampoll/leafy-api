@@ -6,7 +6,7 @@ namespace LeafyAPI.Services.Interfaces
     {
         Task<TransactionDto> CreateTransactionAsync(string userId, CreateTransactionRequestDto request);
         Task<IEnumerable<TransactionDto>> GetTransactionsAsync(string userId);
-        Task<IEnumerable<TransactionCategoryResponseDto>> GetCategoriesAsync();
+        IEnumerable<TransactionCategoryResponseDto> GetCategories();
         Task DeleteTransactionAsync(string userId, int transactionId);
         Task<TransactionDto> UpdateTransactionAsync(string userId, int transactionId, UpdateTransactionRequestDto request);
     }
