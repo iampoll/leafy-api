@@ -123,6 +123,22 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "LeafyAPI.Controllers.UserController",
+    "Method": "UpdateUserInfo",
+    "RelativePath": "api/users",
+    "HttpMethod": "PATCH",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "LeafyAPI.DTOs.User.UpdateUserInfoRequestDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "LeafyAPI.Controllers.WalletController",
     "Method": "CreateWallet",
     "RelativePath": "api/wallets",

@@ -150,8 +150,8 @@ C:\Users\memet\OneDrive\Desktop\leafy-mini-project\LeafyAPI\LeafyAPI\obj\Debug\n
 C:\Users\memet\OneDrive\Desktop\leafy-mini-project\LeafyAPI\LeafyAPI\obj\Debug\net8.0\LeafyAPI.genruntimeconfig.cache
 C:\Users\memet\OneDrive\Desktop\leafy-mini-project\LeafyAPI\LeafyAPI\obj\Debug\net8.0\ref\LeafyAPI.dll
 C:\Users\memet\OneDrive\Desktop\leafy-mini-project\LeafyAPI\LeafyAPI\obj\Debug\net8.0\LeafyAPI.sourcelink.json
-C:\Users\memet\OneDrive\Desktop\leafy-mini-project\LeafyAPI\LeafyAPI\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
 C:\Users\memet\OneDrive\Desktop\leafy-mini-project\LeafyAPI\LeafyAPI\bin\Debug\net8.0\Microsoft.AspNetCore.JsonPatch.dll
 C:\Users\memet\OneDrive\Desktop\leafy-mini-project\LeafyAPI\LeafyAPI\bin\Debug\net8.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
 C:\Users\memet\OneDrive\Desktop\leafy-mini-project\LeafyAPI\LeafyAPI\bin\Debug\net8.0\Newtonsoft.Json.dll
 C:\Users\memet\OneDrive\Desktop\leafy-mini-project\LeafyAPI\LeafyAPI\bin\Debug\net8.0\Newtonsoft.Json.Bson.dll
+C:\Users\memet\OneDrive\Desktop\leafy-mini-project\LeafyAPI\LeafyAPI\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt

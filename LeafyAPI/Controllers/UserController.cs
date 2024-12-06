@@ -4,11 +4,13 @@ using LeafyAPI.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace LeafyAPI.Controllers
 {
     [ApiController]
     [Route("api/users")]
+    [Authorize]
     public class UserController : ControllerBase
     {
         private readonly IUserService _userService;
@@ -21,7 +23,6 @@ namespace LeafyAPI.Controllers
         }
 
         [HttpGet]
-        [Authorize]
         public async Task<IActionResult> GetUserInfo()
         {
             var userId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
@@ -37,10 +38,31 @@ namespace LeafyAPI.Controllers
             {
                 Id = user.Id,
                 Email = user.Email ?? string.Empty,
-                IsOnboarded = user.isOnboarded
+                IsOnboarded = user.isOnboarded,
+                Name = user.Name ?? string.Empty
             };
 
             return Ok(userInfo);
+        }
+
+        [HttpPatch]
+        public async Task<IActionResult> UpdateUserInfo([FromBody] UpdateUserInfoRequestDto request)
+        {
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
+                return Unauthorized();
+
+            if (request.Name == null)
+                return BadRequest("Name is required");
+
+            var existingUser = await _userManager.Users.Where(u => u.Name == request.Name).FirstOrDefaultAsync();
+            if (existingUser != null)
+                return BadRequest("Name already taken");
+
+            user.Name = request.Name;
+            await _userManager.UpdateAsync(user);
+
+            return Ok();
         }
     }
 }

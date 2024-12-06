@@ -22,7 +22,8 @@ namespace LeafyAPI.Services
             {
                 Id = user.Id,
                 Email = user.Email ?? string.Empty,
-                IsOnboarded = user.isOnboarded
+                IsOnboarded = user.isOnboarded,
+                Name = user.Name ?? string.Empty
             };
         }
     }
