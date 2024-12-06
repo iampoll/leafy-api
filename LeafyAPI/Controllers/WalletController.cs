@@ -14,11 +14,13 @@ namespace LeafyAPI.Controllers
     {
         private readonly IWalletService _walletService;
         private readonly UserManager<User> _userManager;
+        private readonly ILevelService _levelService;
 
-        public WalletController(IWalletService walletService, UserManager<User> userManager)
+        public WalletController(IWalletService walletService, UserManager<User> userManager, ILevelService levelService)
         {
             _walletService = walletService;
             _userManager = userManager;
+            _levelService = levelService;
         }
 
         [HttpPost]
@@ -31,6 +33,11 @@ namespace LeafyAPI.Controllers
             try
             {
                 var result = await _walletService.CreateWalletAsync(user.Id, request);
+
+                var initializeLevel = await _levelService.InitializeLevelAsync(new Level { UserId = user.Id });
+                if (initializeLevel == null)
+                    return BadRequest("Failed to initialize level");
+
                 return Ok(result);
             }
             catch (InvalidOperationException ex)
