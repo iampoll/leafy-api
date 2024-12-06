@@ -1,4 +1,5 @@
 using LeafyAPI.DTOs.User;
+using LeafyAPI.Helpers;
 using LeafyAPI.Models;
 using LeafyAPI.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
@@ -42,11 +43,14 @@ namespace LeafyAPI.Controllers
             if (request.Name == null)
                 throw new InvalidOperationException("Name is required");
 
-            var existingUser = await _userManager.Users.Where(u => u.Name == request.Name).FirstOrDefaultAsync();
+            var nameSlug = GenerateSlug.CreateSlug(request.Name);
+
+            var existingUser = await _userManager.Users.Where(u => u.NameSlug == nameSlug).FirstOrDefaultAsync();
             if (existingUser != null)
                 throw new InvalidOperationException("Name already taken");
 
             user.Name = request.Name;
+            user.NameSlug = nameSlug;
             await _userManager.UpdateAsync(user);
 
             return Ok();

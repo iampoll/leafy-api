@@ -8,12 +8,10 @@ namespace LeafyAPI.Services
 {
     public class UserService : IUserService
     {
-        private readonly IUserRepository _userRepository;
         private readonly UserManager<User> _userManager;
 
-        public UserService(IUserRepository userRepository, UserManager<User> userManager)
+        public UserService(UserManager<User> userManager)
         {
-            _userRepository = userRepository;
             _userManager = userManager;
         }
 
