@@ -139,6 +139,22 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "LeafyAPI.Controllers.UserController",
+    "Method": "GetUserByName",
+    "RelativePath": "api/users/{name}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "name",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "LeafyAPI.Controllers.WalletController",
     "Method": "CreateWallet",
     "RelativePath": "api/wallets",

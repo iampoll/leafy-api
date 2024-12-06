@@ -18,5 +18,10 @@ namespace LeafyAPI.Repositories
         {
             return await _context.Users.FindAsync(userId);
         }
+
+        public async Task<User?> GetUserByNameAsync(string name)
+        {
+            return await _context.Users.FirstOrDefaultAsync(u => u.Name == name);
+        }
     }
 }

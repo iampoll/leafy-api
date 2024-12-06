@@ -26,5 +26,18 @@ namespace LeafyAPI.Services
                 Name = user.Name ?? string.Empty
             };
         }
+
+        public async Task<GetUserByNameResponseDto?> GetUserByNameAsync(string name)
+        {
+            if (string.IsNullOrWhiteSpace(name)) return null;
+
+            var user = await _userRepository.GetUserByNameAsync(name);
+            if (user == null) return null;
+
+            return new GetUserByNameResponseDto
+            {
+                Name = user.Name
+            };
+        }
     }
 }
