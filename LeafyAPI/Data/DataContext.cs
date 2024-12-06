@@ -12,7 +12,7 @@ namespace LeafyAPI.Data
 
         public required DbSet<Wallet> Wallets { get; set; }
         public required DbSet<Transaction> Transactions { get; set; }
-        public required DbSet<Levels> Levels { get; set; }
+        public required DbSet<Level> Levels { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

@@ -2,11 +2,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using LeafyAPI.Models;
 
-public class LevelsConfiguration : IEntityTypeConfiguration<Levels>
+public class LevelsConfiguration : IEntityTypeConfiguration<Level>
 {
-    public void Configure(EntityTypeBuilder<Levels> builder)
+    public void Configure(EntityTypeBuilder<Level> builder)
     {
-        builder.Property(l => l.Level)
+        builder.Property(l => l.CurrentLevel)
             .HasDefaultValue(1);
 
         builder.Property(l => l.ExperiencePoints)

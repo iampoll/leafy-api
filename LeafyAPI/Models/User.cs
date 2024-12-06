@@ -6,6 +6,6 @@ namespace LeafyAPI.Models
     {
         public bool isOnboarded { get; set; }
         public string Name { get; set; } = string.Empty;
-        public Levels Levels { get; set; } = null!;
+        public Level Level { get; set; } = null!;
     }
 }

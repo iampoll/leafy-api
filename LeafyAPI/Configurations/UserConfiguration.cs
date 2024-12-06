@@ -9,8 +9,8 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
         builder.Property(u => u.isOnboarded)
             .HasDefaultValue(false);
 
-        builder.HasOne(u => u.Levels)
+        builder.HasOne(u => u.Level)
             .WithOne(l => l.User)
-            .HasForeignKey<Levels>(l => l.UserId);
+            .HasForeignKey<Level>(l => l.UserId);
     }
 }
