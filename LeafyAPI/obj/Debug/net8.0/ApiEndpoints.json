@@ -140,14 +140,14 @@
   },
   {
     "ContainingType": "LeafyAPI.Controllers.UserController",
-    "Method": "GetUserByName",
-    "RelativePath": "api/users/{name}",
+    "Method": "GetUserByNameSlug",
+    "RelativePath": "api/users/{nameSlug}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "name",
+        "Name": "nameSlug",
         "Type": "System.String",
         "IsRequired": true
       }

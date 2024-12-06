@@ -597,14 +597,14 @@
         }
       }
     },
-    "/api/users/{name}": {
+    "/api/users/{nameSlug}": {
       "get": {
         "tags": [
           "User"
         ],
         "parameters": [
           {
-            "name": "name",
+            "name": "nameSlug",
             "in": "path",
             "required": true,
             "schema": {

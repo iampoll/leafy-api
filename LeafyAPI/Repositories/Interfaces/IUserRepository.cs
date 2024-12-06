@@ -4,6 +4,6 @@ namespace LeafyAPI.Repositories.Interfaces
 {
     public interface IUserRepository
     {
-        Task<User?> GetUserByNameAsync(string name);
+        Task<User?> GetUserByNameSlugAsync(string nameSlug);
     }
 }

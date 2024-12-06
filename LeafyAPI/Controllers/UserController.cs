@@ -56,13 +56,12 @@ namespace LeafyAPI.Controllers
             return Ok();
         }
 
-        [HttpGet("{name}")]
+        [HttpGet("{nameSlug}")]
         [AllowAnonymous]
-        public async Task<IActionResult> GetUserByName(string name)
+        public async Task<IActionResult> GetUserByNameSlug(string nameSlug)
         {
-            var user = await _userService.GetUserByNameAsync(name);
-            if (user == null)
-                throw new KeyNotFoundException("User not found");
+            var user = await _userService.GetUserByNameSlugAsync(nameSlug)
+                ?? throw new KeyNotFoundException("User not found");
 
             return Ok(user);
         }

@@ -5,6 +5,6 @@ namespace LeafyAPI.Services.Interfaces
     public interface IUserService
     {
         Task<GetUserResponseDto?> GetUserInfoAsync(string userId);
-        Task<GetUserByNameResponseDto?> GetUserByNameAsync(string name);
+        Task<GetUserByNameSlugResponseDto?> GetUserByNameSlugAsync(string nameSlug);
     }
 }
