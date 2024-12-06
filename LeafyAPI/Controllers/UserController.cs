@@ -1,5 +1,8 @@
+using LeafyAPI.DTOs.User;
+using LeafyAPI.Models;
 using LeafyAPI.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LeafyAPI.Controllers
@@ -9,10 +12,12 @@ namespace LeafyAPI.Controllers
     public class UserController : ControllerBase
     {
         private readonly IUserService _userService;
+        private readonly UserManager<User> _userManager;
 
-        public UserController(IUserService userService)
+        public UserController(IUserService userService, UserManager<User> userManager)
         {
             _userService = userService;
+            _userManager = userManager;
         }
 
         [HttpGet]
@@ -23,9 +28,17 @@ namespace LeafyAPI.Controllers
             if (string.IsNullOrEmpty(userId))
                 return Unauthorized();
 
-            var userInfo = await _userService.GetUserInfoAsync(userId);
-            if (userInfo == null)
-                return NotFound();
+            // var userInfo = await _userService.GetUserInfoAsync(userId);
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
+                return Unauthorized();
+
+            var userInfo = new GetUserResponseDto
+            {
+                Id = user.Id,
+                Email = user.Email ?? string.Empty,
+                IsOnboarded = user.isOnboarded
+            };
 
             return Ok(userInfo);
         }
