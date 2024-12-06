@@ -18,34 +18,10 @@ namespace LeafyAPI.Data
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<User>()
-                .Property(u => u.isOnboarded)
-                .HasDefaultValue(false);
-
-            modelBuilder.Entity<Wallet>()
-                .Property(w => w.Balance)
-                .HasPrecision(18, 2);
-
-            modelBuilder.Entity<Transaction>()
-                .Property(t => t.Amount)
-                .HasPrecision(18, 2);
-
-            modelBuilder.Entity<Levels>()
-                .Property(l => l.Level)
-                .HasDefaultValue(1);
-
-            modelBuilder.Entity<Levels>()
-                .Property(l => l.ExperiencePoints)
-                .HasDefaultValue(0);
-
-            modelBuilder.Entity<Levels>()
-                .Property(l => l.ExperienceThreshold)
-                .HasDefaultValue(100);
-
-            modelBuilder.Entity<User>()
-                .HasOne(u => u.Levels)
-                .WithOne(l => l.User)
-                .HasForeignKey<Levels>(l => l.UserId);
+            modelBuilder.ApplyConfiguration(new UserConfiguration());
+            modelBuilder.ApplyConfiguration(new WalletConfiguration());
+            modelBuilder.ApplyConfiguration(new LevelsConfiguration());
+            modelBuilder.ApplyConfiguration(new TransactionConfiguration());
         }
     }
 } 
