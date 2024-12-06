@@ -49,11 +49,8 @@ namespace LeafyAPI.Services
 
         public async Task<WalletResponseDto> GetWalletAsync(string userId)
         {
-            var wallet = await _walletRepository.GetByUserIdAsync(userId);
-            if (wallet == null)
-            {
-                throw new KeyNotFoundException("Wallet not found");
-            }
+            var wallet = await _walletRepository.GetByUserIdAsync(userId)
+                ?? throw new KeyNotFoundException("Wallet not found");
 
             return new WalletResponseDto
             {

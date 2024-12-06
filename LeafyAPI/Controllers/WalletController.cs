@@ -26,42 +26,23 @@ namespace LeafyAPI.Controllers
         [HttpPost]
         public async Task<ActionResult<WalletResponseDto>> CreateWallet([FromBody] CreateWalletRequestDto request)
         {
-            var user = await _userManager.GetUserAsync(User);
-            if (user == null)
-                return Unauthorized();
+            var user = await _userManager.GetUserAsync(User)
+                ?? throw new UnauthorizedAccessException("Please login to access this resource");
 
-            try
-            {
-                var result = await _walletService.CreateWalletAsync(user.Id, request);
-
-                var initializeLevel = await _levelService.InitializeLevelAsync(new Level { UserId = user.Id });
-                if (initializeLevel == null)
-                    return BadRequest("Failed to initialize level");
-
-                return Ok(result);
-            }
-            catch (InvalidOperationException ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            var result = await _walletService.CreateWalletAsync(user.Id, request);
+            var initializeLevel = await _levelService.InitializeLevelAsync(new Level { UserId = user.Id });
+            
+            return Ok(result);
         }
 
         [HttpGet]
         public async Task<ActionResult<WalletResponseDto>> GetWallet()
         {
-            var user = await _userManager.GetUserAsync(User);
-            if (user == null)
-                return Unauthorized();
+            var user = await _userManager.GetUserAsync(User) 
+                ?? throw new UnauthorizedAccessException("Please login to access this resource");
 
-            try
-            {
-                var result = await _walletService.GetWalletAsync(user.Id);
-                return Ok(result);
-            }
-            catch (KeyNotFoundException)
-            {
-                return NotFound("Wallet not found");
-            }
+            var result = await _walletService.GetWalletAsync(user.Id);
+            return Ok(result);
         }
     }
 }

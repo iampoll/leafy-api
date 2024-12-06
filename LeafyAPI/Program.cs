@@ -7,6 +7,7 @@ using LeafyAPI.Repositories.Interfaces;
 using LeafyAPI.Services.Interfaces;
 using LeafyAPI.Services;
 using LeafyAPI.Repositories;
+using LeafyAPI.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -60,6 +61,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseGlobalExceptionHandler();
 
 app.MapIdentityApi<User>();
 
