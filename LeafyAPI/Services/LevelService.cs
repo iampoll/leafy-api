@@ -1,4 +1,3 @@
-using LeafyAPI.DTOs.User;
 using LeafyAPI.Models;
 using LeafyAPI.Repositories.Interfaces;
 using LeafyAPI.Services.Interfaces;
@@ -14,11 +13,22 @@ namespace LeafyAPI.Services
             _levelRepository = levelRepository;
         }
 
-        public async Task<Level> InitializeLevelAsync(Level level)
+        public async Task<LevelResponseDto> InitializeLevelAsync(Level level)
         {
-            await _levelRepository.InitializeLevelAsync(level);
+            var initializedLevel = await _levelRepository.InitializeLevelAsync(level);
             await _levelRepository.SaveChangesAsync();
-            return level;
+
+            return MapToDto(initializedLevel);
+        }
+
+        private static LevelResponseDto MapToDto(Level level)
+        {
+            return new LevelResponseDto
+            {
+                CurrentLevel = level.CurrentLevel,
+                ExperiencePoints = level.ExperiencePoints,
+                ExperienceThreshold = level.ExperienceThreshold
+            };
         }
     }
 }

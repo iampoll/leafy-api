@@ -5,6 +5,6 @@ namespace LeafyAPI.Services.Interfaces
 {
     public interface ILevelService
     {
-        Task<Level> InitializeLevelAsync(Level level);
+        Task<LevelResponseDto> InitializeLevelAsync(Level level);
     }
 }

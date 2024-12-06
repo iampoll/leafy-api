@@ -21,7 +21,7 @@ namespace LeafyAPI.Repositories
 
         public async Task<User?> GetUserByNameAsync(string name)
         {
-            return await _context.Users.FirstOrDefaultAsync(u => u.Name == name);
+            return await _context.Users.Include(u => u.Level).FirstOrDefaultAsync(u => u.Name == name);
         }
     }
 }
