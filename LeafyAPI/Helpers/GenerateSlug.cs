@@ -1,9 +1,3 @@
-//create function to generate slug from name
-//slug is used for the url of the user
-//slug should not have special characters, only letters, numbers, and hyphens
-//slug should not have consecutive hyphens
-//slug should not start or end with a hyphen
-
 using System.Text.RegularExpressions;
 
 namespace LeafyAPI.Helpers

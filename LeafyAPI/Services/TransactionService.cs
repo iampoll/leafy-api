@@ -18,15 +18,14 @@ namespace LeafyAPI.Services
 
         public async Task<TransactionDto> CreateTransactionAsync(string userId, CreateTransactionRequestDto request)
         {
-            var wallet = await _walletRepository.GetByUserIdAsync(userId);
-            if (wallet == null)
-                throw new KeyNotFoundException("Wallet not found");
+            var wallet = await _walletRepository.GetByUserIdAsync(userId)
+                ?? throw new KeyNotFoundException("Wallet not found");
 
             if ((int)request.Category < 1 || (int)request.Category > 16)
-                throw new ArgumentException("Invalid category");
+                throw new InvalidDataException("Invalid category");
 
             if (request.isExpense && request.Category == TransactionCategory.Income)
-                throw new ArgumentException("Income cannot be an expense");
+                throw new InvalidDataException("Income cannot be an expense");
 
             var transaction = new Transaction
             {
@@ -59,9 +58,8 @@ namespace LeafyAPI.Services
 
         public async Task<IEnumerable<TransactionDto>> GetTransactionsAsync(string userId)
         {
-            var wallet = await _walletRepository.GetByUserIdAsync(userId);
-            if (wallet == null)
-                throw new KeyNotFoundException("Wallet not found");
+            var wallet = await _walletRepository.GetByUserIdAsync(userId)
+                ?? throw new KeyNotFoundException("Wallet not found");
 
             var transactions = await _transactionRepository.GetByWalletIdAsync(wallet.Id);
             return transactions.Select(MapToDto);
@@ -69,13 +67,11 @@ namespace LeafyAPI.Services
 
         public async Task DeleteTransactionAsync(string userId, int transactionId)
         {
-            var wallet = await _walletRepository.GetByUserIdAsync(userId);
-            if (wallet == null)
-                throw new KeyNotFoundException("Wallet not found");
+            var wallet = await _walletRepository.GetByUserIdAsync(userId)
+                ?? throw new KeyNotFoundException("Wallet not found");
 
-            var transaction = await _transactionRepository.GetByIdAndWalletIdAsync(transactionId, wallet.Id);
-            if (transaction == null)
-                throw new KeyNotFoundException("Transaction not found");
+            var transaction = await _transactionRepository.GetByIdAndWalletIdAsync(transactionId, wallet.Id)
+                ?? throw new KeyNotFoundException("Transaction not found");
 
             if (transaction.isExpense)
                 wallet.Balance += transaction.Amount;
@@ -88,16 +84,14 @@ namespace LeafyAPI.Services
 
         public async Task<TransactionDto> UpdateTransactionAsync(string userId, int transactionId, UpdateTransactionRequestDto request)
         {
-            var wallet = await _walletRepository.GetByUserIdAsync(userId);
-            if (wallet == null)
-                throw new KeyNotFoundException("Wallet not found");
+            var wallet = await _walletRepository.GetByUserIdAsync(userId)
+                ?? throw new KeyNotFoundException("Wallet not found");
 
-            var transaction = await _transactionRepository.GetByIdAndWalletIdAsync(transactionId, wallet.Id);
-            if (transaction == null)
-                throw new KeyNotFoundException("Transaction not found");
+            var transaction = await _transactionRepository.GetByIdAndWalletIdAsync(transactionId, wallet.Id)
+                ?? throw new KeyNotFoundException("Transaction not found");
 
             if (request.isExpense && request.Category == TransactionCategory.Income)
-                throw new ArgumentException("Income cannot be an expense");
+                throw new InvalidDataException("Income cannot be an expense");
 
             // Reverse old transaction
             if (transaction.isExpense)

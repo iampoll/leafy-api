@@ -24,23 +24,11 @@ namespace LeafyAPI.Controllers
         [HttpPost]
         public async Task<ActionResult<TransactionDto>> CreateTransaction([FromBody] CreateTransactionRequestDto request)
         {
-            var user = await _userManager.GetUserAsync(User);
-            if (user == null)
-                return Unauthorized();
+            var user = await _userManager.GetUserAsync(User)
+                ?? throw new UnauthorizedAccessException();
 
-            try
-            {
-                var result = await _transactionService.CreateTransactionAsync(user.Id, request);
-                return Ok(result);
-            }
-            catch (KeyNotFoundException ex)
-            {
-                return NotFound(ex.Message);
-            }
-            catch (ArgumentException ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            var result = await _transactionService.CreateTransactionAsync(user.Id, request);
+            return Ok(result);
         }
 
         [HttpGet("categories")]
@@ -53,59 +41,31 @@ namespace LeafyAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<TransactionDto>>> GetTransactions()
         {
-            var user = await _userManager.GetUserAsync(User);
-            if (user == null)
-                return Unauthorized();
+            var user = await _userManager.GetUserAsync(User)
+                ?? throw new UnauthorizedAccessException();
 
-            try
-            {
-                var transactions = await _transactionService.GetTransactionsAsync(user.Id);
-                return Ok(transactions);
-            }
-            catch (KeyNotFoundException ex)
-            {
-                return NotFound(ex.Message);
-            }
+            var transactions = await _transactionService.GetTransactionsAsync(user.Id);
+            return Ok(transactions);
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteTransaction(int id)
         {
-            var user = await _userManager.GetUserAsync(User);
-            if (user == null)
-                return Unauthorized();
+            var user = await _userManager.GetUserAsync(User)
+                ?? throw new UnauthorizedAccessException();
 
-            try
-            {
-                await _transactionService.DeleteTransactionAsync(user.Id, id);
-                return NoContent();
-            }
-            catch (KeyNotFoundException ex)
-            {
-                return NotFound(ex.Message);
-            }
+            await _transactionService.DeleteTransactionAsync(user.Id, id);
+            return NoContent();
         }
 
         [HttpPatch("{id}")]
         public async Task<ActionResult<TransactionDto>> UpdateTransaction(int id, [FromBody] UpdateTransactionRequestDto request)
         {
-            var user = await _userManager.GetUserAsync(User);
-            if (user == null)
-                return Unauthorized();
+            var user = await _userManager.GetUserAsync(User)
+                ?? throw new UnauthorizedAccessException();
 
-            try
-            {
-                var result = await _transactionService.UpdateTransactionAsync(user.Id, id, request);
-                return Ok(result);
-            }
-            catch (KeyNotFoundException ex)
-            {
-                return NotFound(ex.Message);
-            }
-            catch (ArgumentException ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            var result = await _transactionService.UpdateTransactionAsync(user.Id, id, request);
+            return Ok(result);
         }
     }
 }
