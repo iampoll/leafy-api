@@ -25,22 +25,10 @@ namespace LeafyAPI.Controllers
         [HttpGet]
         public async Task<IActionResult> GetUserInfo()
         {
-            var userId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
-            if (string.IsNullOrEmpty(userId))
-                return Unauthorized();
+            var userId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value
+                ?? throw new UnauthorizedAccessException();
 
-            // var userInfo = await _userService.GetUserInfoAsync(userId);
-            var user = await _userManager.GetUserAsync(User);
-            if (user == null)
-                return Unauthorized();
-
-            var userInfo = new GetUserResponseDto
-            {
-                Id = user.Id,
-                Email = user.Email ?? string.Empty,
-                IsOnboarded = user.isOnboarded,
-                Name = user.Name ?? string.Empty
-            };
+            var userInfo = await _userService.GetUserInfoAsync(userId);
 
             return Ok(userInfo);
         }
@@ -48,16 +36,15 @@ namespace LeafyAPI.Controllers
         [HttpPatch]
         public async Task<IActionResult> UpdateUserInfo([FromBody] UpdateUserInfoRequestDto request)
         {
-            var user = await _userManager.GetUserAsync(User);
-            if (user == null)
-                return Unauthorized();
+            var user = await _userManager.GetUserAsync(User)
+                ?? throw new UnauthorizedAccessException();
 
             if (request.Name == null)
-                return BadRequest("Name is required");
+                throw new InvalidOperationException("Name is required");
 
             var existingUser = await _userManager.Users.Where(u => u.Name == request.Name).FirstOrDefaultAsync();
             if (existingUser != null)
-                return BadRequest("Name already taken");
+                throw new InvalidOperationException("Name already taken");
 
             user.Name = request.Name;
             await _userManager.UpdateAsync(user);
@@ -71,7 +58,7 @@ namespace LeafyAPI.Controllers
         {
             var user = await _userService.GetUserByNameAsync(name);
             if (user == null)
-                return NotFound("User not found");
+                throw new KeyNotFoundException("User not found");
 
             return Ok(user);
         }

@@ -41,9 +41,15 @@ namespace LeafyAPI.Middleware
                 _ => (int)HttpStatusCode.InternalServerError
             };
 
+            var defaultMessage = error switch
+            {
+                UnauthorizedAccessException => "Please login to access this resource",
+                _ => error.Message
+            };
+
             var result = JsonSerializer.Serialize(new
             {
-                message = error.Message,
+                message = defaultMessage,
                 statusCode = response.StatusCode,
                 stackTrace = error.StackTrace
             });

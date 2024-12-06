@@ -1,22 +1,26 @@
 using LeafyAPI.DTOs.User;
+using LeafyAPI.Models;
 using LeafyAPI.Repositories.Interfaces;
 using LeafyAPI.Services.Interfaces;
+using Microsoft.AspNetCore.Identity;
 
 namespace LeafyAPI.Services
 {
     public class UserService : IUserService
     {
         private readonly IUserRepository _userRepository;
+        private readonly UserManager<User> _userManager;
 
-        public UserService(IUserRepository userRepository)
+        public UserService(IUserRepository userRepository, UserManager<User> userManager)
         {
             _userRepository = userRepository;
+            _userManager = userManager;
         }
 
         public async Task<GetUserResponseDto?> GetUserInfoAsync(string userId)
         {
-            var user = await _userRepository.GetUserByIdAsync(userId);
-            if (user == null) return null;
+            var user = await _userManager.FindByIdAsync(userId)
+                ?? throw new UnauthorizedAccessException();
 
             return new GetUserResponseDto
             {
@@ -29,9 +33,8 @@ namespace LeafyAPI.Services
 
         public async Task<GetUserByNameResponseDto?> GetUserByNameAsync(string name)
         {
-            var user = await _userRepository.GetUserByNameAsync(name);
-            if (user == null)
-                return null;
+            var user = await _userManager.FindByNameAsync(name)
+                ?? throw new UnauthorizedAccessException();
 
             return new GetUserByNameResponseDto
             {
