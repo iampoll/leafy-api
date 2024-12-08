@@ -30,5 +30,15 @@ namespace LeafyAPI.Repositories
             return await _context.Levels
                 .FirstOrDefaultAsync(l => l.UserId == userId);
         }
+
+        public async Task<IEnumerable<Level>> GetLeaderboardAsync(int? limit = 10)
+        {
+            var query = _context.Levels
+                .Include(l => l.User)
+                .OrderByDescending(l => l.CurrentLevel)
+                .ThenByDescending(l => l.ExperiencePoints);
+
+            return await (limit.HasValue ? query.Take(limit.Value) : query).ToListAsync();
+        }
     }
 }

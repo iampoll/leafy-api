@@ -1,6 +1,7 @@
 using LeafyAPI.Models;
 using LeafyAPI.Repositories.Interfaces;
 using LeafyAPI.Services.Interfaces;
+using LeafyAPI.DTOs;
 
 namespace LeafyAPI.Services
 {
@@ -41,11 +42,37 @@ namespace LeafyAPI.Services
             return MapToDto(level);
         }
 
+        public async Task<IEnumerable<LeaderboardResponseDto>> GetLeaderboardAsync(int? limit = 10)
+        {
+            var levels = await _levelRepository.GetLeaderboardAsync(limit);
+            var rank = 1;
+
+            return levels.Select(l => new LeaderboardResponseDto
+            {
+                UserName = l.User.Name,
+                NameSlug = l.User.NameSlug,
+                CurrentLevel = l.CurrentLevel,
+                ExperiencePoints = l.ExperiencePoints,
+                TotalExperiencePoints = CalculateTotalExperience(l.CurrentLevel, l.ExperiencePoints),
+                Rank = rank++
+            });
+        }
+
         private static int CalculateNextThreshold(int currentLevel)
         {
             var increaseByTenPercent = 1.1;
             var nextLevelThreshold = (int)(100 * Math.Pow(increaseByTenPercent, currentLevel - 1));
             return nextLevelThreshold;
+        }
+
+        private int CalculateTotalExperience(int currentLevel, int currentXP)
+        {
+            var total = currentXP;
+            for (var level = 1; level < currentLevel; level++)
+            {
+                total += CalculateNextThreshold(level);
+            }
+            return total;
         }
 
         private static LevelResponseDto MapToDto(Level level)

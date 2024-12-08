@@ -339,6 +339,54 @@
         }
       }
     },
+    "/api/levels/leaderboard": {
+      "get": {
+        "tags": [
+          "Level"
+        ],
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/LeaderboardResponseDto"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/LeaderboardResponseDto"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/LeaderboardResponseDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/transactions": {
       "post": {
         "tags": [
@@ -1042,6 +1090,36 @@
           },
           "isEmailConfirmed": {
             "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "LeaderboardResponseDto": {
+        "type": "object",
+        "properties": {
+          "userName": {
+            "type": "string",
+            "nullable": true
+          },
+          "nameSlug": {
+            "type": "string",
+            "nullable": true
+          },
+          "currentLevel": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "experiencePoints": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "totalExperiencePoints": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "rank": {
+            "type": "integer",
+            "format": "int32"
           }
         },
         "additionalProperties": false
