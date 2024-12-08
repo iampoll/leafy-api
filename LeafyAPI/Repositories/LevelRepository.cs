@@ -24,5 +24,11 @@ namespace LeafyAPI.Repositories
         {
             await _context.SaveChangesAsync();
         }
+
+        public async Task<Level?> GetLevelByUserIdAsync(string userId)
+        {
+            return await _context.Levels
+                .FirstOrDefaultAsync(l => l.UserId == userId);
+        }
     }
 }

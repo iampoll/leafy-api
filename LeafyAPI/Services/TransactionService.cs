@@ -9,11 +9,13 @@ namespace LeafyAPI.Services
     {
         private readonly ITransactionRepository _transactionRepository;
         private readonly IWalletRepository _walletRepository;
+        private readonly ILevelService _levelService;
 
-        public TransactionService(ITransactionRepository transactionRepository, IWalletRepository walletRepository)
+        public TransactionService(ITransactionRepository transactionRepository, IWalletRepository walletRepository, ILevelService levelService)
         {
             _transactionRepository = transactionRepository;
             _walletRepository = walletRepository;
+            _levelService = levelService;
         }
 
         public async Task<TransactionDto> CreateTransactionAsync(string userId, CreateTransactionRequestDto request)
@@ -42,6 +44,8 @@ namespace LeafyAPI.Services
 
             await _transactionRepository.CreateAsync(transaction);
             await _transactionRepository.SaveChangesAsync();
+
+            await _levelService.AddExperienceAsync(userId);
 
             return MapToDto(transaction);
         }
