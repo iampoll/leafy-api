@@ -49,7 +49,7 @@ namespace LeafyAPI.Services
 
             return levels.Select(l => new LeaderboardResponseDto
             {
-                UserName = l.User.Name,
+                Name = l.User.Name,
                 NameSlug = l.User.NameSlug,
                 CurrentLevel = l.CurrentLevel,
                 ExperiencePoints = l.ExperiencePoints,

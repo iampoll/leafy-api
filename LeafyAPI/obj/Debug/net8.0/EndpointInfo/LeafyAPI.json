@@ -1097,7 +1097,7 @@
       "LeaderboardResponseDto": {
         "type": "object",
         "properties": {
-          "userName": {
+          "name": {
             "type": "string",
             "nullable": true
           },
