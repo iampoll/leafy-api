@@ -22,16 +22,22 @@ namespace LeafyAPI.Controllers
         }
 
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<TransactionDto>> CreateTransaction([FromBody] CreateTransactionRequestDto request)
         {
             var user = await _userManager.GetUserAsync(User)
                 ?? throw new UnauthorizedAccessException();
 
             var result = await _transactionService.CreateTransactionAsync(user.Id, request);
-            return Ok(result);
+
+            return CreatedAtAction(nameof(GetTransactions), new { id = result.Id }, result);
         }
 
         [HttpGet("categories")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public ActionResult<IEnumerable<TransactionCategoryResponseDto>> GetCategories()
         {
             var categories = _transactionService.GetCategories();
@@ -39,6 +45,9 @@ namespace LeafyAPI.Controllers
         }
 
         [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<IEnumerable<TransactionDto>>> GetTransactions()
         {
             var user = await _userManager.GetUserAsync(User)
@@ -49,6 +58,9 @@ namespace LeafyAPI.Controllers
         }
 
         [HttpDelete("{id}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> DeleteTransaction(int id)
         {
             var user = await _userManager.GetUserAsync(User)
@@ -59,6 +71,10 @@ namespace LeafyAPI.Controllers
         }
 
         [HttpPatch("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<TransactionDto>> UpdateTransaction(int id, [FromBody] UpdateTransactionRequestDto request)
         {
             var user = await _userManager.GetUserAsync(User)
