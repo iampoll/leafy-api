@@ -18,7 +18,7 @@ namespace LeafyAPI.Services
             _levelService = levelService;
         }
 
-        public async Task<TransactionDto> CreateTransactionAsync(string userId, CreateTransactionRequestDto request)
+        public async Task<CreateTransactionResponseDto> CreateTransactionAsync(string userId, CreateTransactionRequestDto request)
         {
             var wallet = await _walletRepository.GetByUserIdAsync(userId)
                 ?? throw new KeyNotFoundException("Wallet not found");
@@ -47,7 +47,14 @@ namespace LeafyAPI.Services
 
             await _levelService.AddExperienceAsync(userId);
 
-            return MapToDto(transaction);
+            var isLeveledUp = await _levelService.IsLeveledUpAsync(userId)
+                ?? throw new InvalidOperationException("Failed to check level up status");
+
+            return new CreateTransactionResponseDto 
+            { 
+                IsLeveledUp = isLeveledUp, 
+                Transaction = MapToDto(transaction) 
+            };
         }
 
         public IEnumerable<TransactionCategoryResponseDto> GetCategories()

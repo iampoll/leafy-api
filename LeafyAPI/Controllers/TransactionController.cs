@@ -33,7 +33,7 @@ namespace LeafyAPI.Controllers
 
             var result = await _transactionService.CreateTransactionAsync(user.Id, request);
 
-            return CreatedAtAction(nameof(GetTransactions), new { id = result.Id }, result);
+            return CreatedAtAction(nameof(GetTransactions), new { id = result.Transaction.Id }, result);
         }
 
         [HttpGet("categories")]

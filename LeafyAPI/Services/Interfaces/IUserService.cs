@@ -1,3 +1,4 @@
+using LeafyAPI.DTOs;
 using LeafyAPI.DTOs.User;
 
 namespace LeafyAPI.Services.Interfaces

@@ -58,6 +58,16 @@ namespace LeafyAPI.Services
             });
         }
 
+        public async Task<IsLeveledUpResponseDto?> IsLeveledUpAsync(string userId)
+        {
+            var level = await _levelRepository.GetLevelByUserIdAsync(userId)
+                ?? throw new KeyNotFoundException("Level not found");
+
+            var isLeveledUp = level.ExperiencePoints == 0;
+            
+            return new IsLeveledUpResponseDto { IsLeveledUp = isLeveledUp, Level = MapToDto(level) };
+        }
+
         private static int CalculateNextThreshold(int currentLevel)
         {
             var increaseByTenPercent = 1.1;

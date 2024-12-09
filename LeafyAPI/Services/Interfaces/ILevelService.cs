@@ -9,5 +9,6 @@ namespace LeafyAPI.Services.Interfaces
         Task<LevelResponseDto> InitializeLevelAsync(Level level);
         Task<LevelResponseDto> AddExperienceAsync(string userId);
         Task<IEnumerable<LeaderboardResponseDto>> GetLeaderboardAsync(int? limit = 10);
+        Task<IsLeveledUpResponseDto?> IsLeveledUpAsync(string userId);
     }
 }
